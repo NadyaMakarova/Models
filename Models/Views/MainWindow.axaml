@@ -1,0 +1,114 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Models.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:suki="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+        x:Class="Models.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+		xmlns:ScottPlot="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
+		Width="1200"
+        Title="Models">
+	<Window.Styles>
+		<StyleInclude Source="avares://SukiUI/Theme/Index.xaml"/>
+	</Window.Styles>
+	<!--<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>-->
+	<ScrollViewer>
+		<suki:SideMenu Name="side">
+			<suki:SideMenu.DataContext>
+				<suki:SideMenuModel>
+					<suki:SideMenuModel.HeaderContent>
+						<StackPanel Height="50">
+							<TextBlock Text=""
+									   HorizontalAlignment="Center"
+									   FontSize="15"
+									   VerticalAlignment="Top"
+									   Classes="general">
+							</TextBlock>
+						</StackPanel>
+					</suki:SideMenuModel.HeaderContent>
+					<suki:SideMenuModel.MenuItems>
+						<suki:SideMenuItem Header="Модель Миллса">
+							<suki:SideMenuItem.Content>
+								<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Spacing="10">
+									<TextBlock HorizontalAlignment="Center" Text="Модель Миллса"></TextBlock>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Количество искусственно внесенных ошибок:"></TextBlock>
+										<TextBox Name="S" Text="{Binding S}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Число обнаруженных искусственных ошибок:"></TextBlock>
+										<TextBox Name="V" Text="{Binding V}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Предполагаемое количество ошибок в программе:"></TextBlock>
+										<TextBox Name="K" Text="{Binding K}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Доверительный уровень прогноза:"></TextBlock>
+										<TextBox IsReadOnly="True" Name="P" Text="{Binding P}"></TextBox>
+									</StackPanel>
+									<Button HorizontalAlignment="Center" Content="Рассчитать" Name="millsCalculation" Command="{Binding MillsCommand}"></Button>
+								</StackPanel>
+							</suki:SideMenuItem.Content>
+						</suki:SideMenuItem>
+						<suki:SideMenuItem Header="Модель Гоело-Окумото">
+							<suki:SideMenuItem.Content>
+								<StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Spacing="10">
+									<TextBlock HorizontalAlignment="Center" Text="Модель Гоело-Окумото"></TextBlock>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Число обнаруженных отказов за время тестирования:"></TextBlock>
+										<TextBox Name="M" Text="{Binding M}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Продолжительность тестирования:"></TextBlock>
+										<TextBox Name="T" Text="{Binding T}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Оценка числа ошибок в ПО в начале тестирования:"></TextBlock>
+										<TextBox Name="N" Text="{Binding N}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Число ошибочных экспериментов:"></TextBlock>
+										<TextBox Name="Nex" Text="{Binding Nex}"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Интенсивность обнаружения отказов:"></TextBlock>
+										<TextBox Name="B" Text="{Binding B}" IsReadOnly="True"></TextBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock VerticalAlignment="Center" Text="Вероятность безотказной работы:"></TextBlock>
+										<TextBox Name="Pg" Text="{Binding Pg}" IsReadOnly="True"></TextBox>
+									</StackPanel>
+									<TreeView Name="periods" Items="{Binding Periods}">
+										<TreeView.DataTemplates>
+											<DataTemplate>
+												<StackPanel Orientation="Horizontal" Spacing="10">
+													<StackPanel Orientation="Horizontal">
+														<TextBlock VerticalAlignment="Center" Text="Период:"></TextBlock>
+														<TextBox Text="{Binding T}" IsReadOnly="True"></TextBox>
+													</StackPanel>
+													<StackPanel Orientation="Horizontal">
+														<TextBlock VerticalAlignment="Center" Text="λ:"></TextBlock>
+														<TextBox IsReadOnly="True" Text="{Binding Lyambda}"></TextBox>
+													</StackPanel>
+												</StackPanel>
+											</DataTemplate>
+										</TreeView.DataTemplates>
+									</TreeView>
+									<Button HorizontalAlignment="Center" Content="Рассчитать" Name="goeloCalculation" Command="{Binding GoeloCommand}"></Button>
+									<Button HorizontalAlignment="Center" Content="Построить график" Click="Clicked"></Button>
+									<ScottPlot:AvaPlot Name="avaPlot1" Width="400" Height="400"></ScottPlot:AvaPlot>
+								</StackPanel>
+							</suki:SideMenuItem.Content>
+						</suki:SideMenuItem>
+					</suki:SideMenuModel.MenuItems>
+				</suki:SideMenuModel>
+			</suki:SideMenu.DataContext>
+		</suki:SideMenu>
+	</ScrollViewer>
+
+</Window>
